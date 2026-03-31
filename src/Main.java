@@ -1,13 +1,35 @@
 import Model.Producto;
 
+import java.util.Comparator;
+import java.util.List;
+
 void main()
 {
     List<Producto> listaDeProductos = cargarProductos();
+
+    /*Consideraciones
+    ● Utilizar map, filter, collect, reduce, Optional, sorted, groupingBy y
+    max/min donde sea adecuado. Investigar metodos .stream, ya que algunos
+    ejercicios se pueden resolver utilizando operaciones que no hemos visto
+    ● No utilizar bucles tradicionales (for o while), sino abordar el problema con
+    Streams y Lambdas.
+    ● Usar la lista de 25 productos provista para realizar pruebas*/
+
+    //EJERCICIOS--------------------------------------------------------------------------------------
 
     /*1. Filtrado y Transformación
     ○ Obtener una lista con los nombres y precios de los productos de la categoría
     "Electrónica" cuyo precio sea mayor a 1000, ordenados de mayor a menor
     precio.*/
+
+    List<String> electronicosCaros = listaDeProductos.stream()
+            .filter(producto -> "Electrónica".equals(producto.getCategoria()))
+            .filter(producto -> producto.getPrecio() > 1000)
+            .sorted(Comparator.comparingDouble(Producto::getPrecio).reversed())
+            .map(producto -> producto.getNombre() + " - $" + producto.getPrecio())
+            .toList();
+
+    System.out.println("electronicosCaros = " + electronicosCaros);
 
     /*2. Reducción de Datos
     ○ Calcular el precio promedio de los productos de la categoría "Hogar", pero
@@ -48,7 +70,7 @@ void main()
     ○ Calcular la ganancia total si se vendiera tdo el inventario, considerando que
     el costo de compra de cada producto es un 45% del valor de venta o de un
     65% si pertenece a la categoria Electronica.*/
-    
+
 
 }
 
