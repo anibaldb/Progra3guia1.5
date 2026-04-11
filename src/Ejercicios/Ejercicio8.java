@@ -17,7 +17,7 @@ public class Ejercicio8 {
         Map<String, Integer> resultado = Datos.PRODUCTOS.stream()
                 .collect(Collectors.groupingBy(p ->p.getCategoria(),
                         Collectors.summingInt(p -> p.getStock())));
-        
+
         resultado.entrySet().removeIf(e->e.getValue()<3);
 
         System.out.println("Stock por categoría (excluyendo categorías con menos de 3 productos): " + resultado);
